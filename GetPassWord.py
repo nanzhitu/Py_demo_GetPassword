@@ -1,7 +1,7 @@
 #encoding=utf-8
 from misweb import *
 from file_parse import *
-from HTMLParser import HTMLParser  
+from HTMLParser import HTMLParser
 
 class myparser(HTMLParser):
     def __init__(self):  
@@ -13,12 +13,12 @@ class myparser(HTMLParser):
            self.tag = tag
     def handle_data(self,data):  
         #处理 a 标签开头的数据
-        if self.tag=='td' and len(data.strip())== 32 :
-             self.data = data.strip()
+        if self.tag == 'td' and len(data.strip()) == 32:
+            self.data = data.strip()
     def getData(self):
         return self.data
 
-def isTrue(chip,deviceId):
+def isTrue(chip, deviceId):
     if (i_chip == "648"):
         if (len(j_deviceId) == 22):
             return True
@@ -31,8 +31,8 @@ def isTrue(chip,deviceId):
             return False
     else:
         return True
-        
-		
+
+
 DevicdId_file = open('DeviceID.txt')
 try:
     DevicdId_lines = DevicdId_file.readlines()
@@ -43,14 +43,14 @@ DevicdId_Lines_Num = len(DevicdId_lines)
 
 
 config = Config_read('config.ini')
-username = config.get("Default","username")
-password = config.get("Default","password")
-device_num = int(config.get("Default","device_num"))
-chip_o = config.get("Default","chip")
-chip = re.split(':',chip_o)
+username = config.get("Default", "username")
+password = config.get("Default", "password")
+device_num = int(config.get("Default", "device_num"))
+chip_o = config.get("Default", "chip")
+chip = re.split(':', chip_o)
 
-config.set("Default","device_num",DevicdId_Lines_Num)
-Config_write('config.ini',config)
+config.set("Default", "device_num", DevicdId_Lines_Num)
+Config_write('config.ini', config)
 
 print username
 print password
@@ -84,9 +84,8 @@ for i_chip in chip:
             m = myparser()
             m.feed(data)
             password = m.getData()
-            if len(password) == 32
-            password_list[j_deviceId]=password
-        
+            if len(password) == 32:
+				password_list[j_deviceId] = password
 print password_list
 
 
